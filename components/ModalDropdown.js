@@ -73,7 +73,6 @@ export default class ModalDropdown extends Component {
     scrollEnabled: true,
     defaultIndex: -1,
     defaultValue: 'Please select...',
-    options: null,
     animated: true,
     showsVerticalScrollIndicator: true,
     keyboardShouldPersistTaps: 'never',

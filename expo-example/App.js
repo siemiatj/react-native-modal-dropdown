@@ -37,7 +37,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      dropdown_4_options: null,
+      dropdown_4_options: [],
       dropdown_4_defaultValue: 'loading...',
       dropdown_6_icon_heart: true,
     };
@@ -187,7 +187,7 @@ class App extends Component {
 
   _dropdown_4_willHide() {
     this.setState({
-      dropdown_4_options: null,
+      dropdown_4_options: [],
       dropdown_4_defaultValue: 'loading',
     });
   }
