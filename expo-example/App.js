@@ -52,6 +52,8 @@ class App extends Component {
           <View style={styles.cell}>
             <ModalDropdown style={styles.dropdown_1}
                            options={DEMO_OPTIONS_1}
+                           renderButtonComponent={TouchableHighlight}
+                           renderButtonProps={{ underlayColor: 'lightgray' }}
             />
             <ModalDropdown style={styles.dropdown_6}
                            options={DEMO_OPTIONS_1}
@@ -69,6 +71,7 @@ class App extends Component {
                            options={DEMO_OPTIONS_2}
                            renderButtonText={(rowData) => this._dropdown_2_renderButtonText(rowData)}
                            renderRow={this._dropdown_2_renderRow.bind(this)}
+                           renderRowComponent={TouchableHighlight}
                            renderSeparator={(sectionID, rowID, adjacentRowHighlighted) => this._dropdown_2_renderSeparator(sectionID, rowID, adjacentRowHighlighted)}
             />
             <TouchableOpacity onPress={() => {
@@ -149,17 +152,15 @@ class App extends Component {
     let icon = highlighted ? require('./images/heart.png') : require('./images/flower.png');
     let evenRow = rowID % 2;
     return (
-      <TouchableHighlight underlayColor='cornflowerblue'>
-        <View style={[styles.dropdown_2_row, {backgroundColor: evenRow ? 'lemonchiffon' : 'white'}]}>
-          <Image style={styles.dropdown_2_image}
-                 mode='stretch'
-                 source={icon}
-          />
-          <Text style={[styles.dropdown_2_row_text, highlighted && {color: 'mediumaquamarine'}]}>
-            {`${rowData.name} (${rowData.age})`}
-          </Text>
-        </View>
-      </TouchableHighlight>
+      <View style={[styles.dropdown_2_row, {backgroundColor: evenRow ? 'lemonchiffon' : 'white'}]}>
+        <Image style={styles.dropdown_2_image}
+                mode='stretch'
+                source={icon}
+        />
+        <Text style={[styles.dropdown_2_row_text, highlighted && {color: 'mediumaquamarine'}]}>
+          {`${rowData.name} (${rowData.age})`}
+        </Text>
+      </View>
     );
   }
 

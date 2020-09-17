@@ -11,6 +11,7 @@ import {
   Modal,
   ActivityIndicator,
   FlatList,
+  Platform
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -60,8 +61,18 @@ export default class ModalDropdown extends Component {
     ]),
     adjustFrame: PropTypes.func,
     renderRow: PropTypes.func,
+    renderRowComponent: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.object,
+    ]),
+    renderRowProps: PropTypes.object,
     renderSeparator: PropTypes.func,
     renderButtonText: PropTypes.func,
+    renderButtonComponent: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.object,
+    ]),
+    renderButtonProps: PropTypes.object,
     onDropdownWillShow: PropTypes.func,
     onDropdownWillHide: PropTypes.func,
     onSelect: PropTypes.func,
@@ -76,6 +87,8 @@ export default class ModalDropdown extends Component {
     animated: true,
     showsVerticalScrollIndicator: true,
     keyboardShouldPersistTaps: 'never',
+    renderRowComponent: Platform.OS === 'ios' ? TouchableOpacity : TouchableHighlight,
+    renderButtonComponent: TouchableOpacity,
   };
 
   constructor(props) {
@@ -178,15 +191,24 @@ export default class ModalDropdown extends Component {
   }
 
   _renderButton() {
-    const { disabled, accessible, children, textStyle } = this.props;
+    const {
+      disabled,
+      accessible,
+      children,
+      textStyle,
+      renderButtonComponent,
+      renderButtonProps,
+    } = this.props;
+    const ButtonTouchable = renderButtonComponent;
     const { buttonText } = this.state;
 
     return (
-      <TouchableOpacity
+      <ButtonTouchable
         ref={button => (this._button = button)}
         disabled={disabled}
         accessible={accessible}
         onPress={this._onButtonPress}
+        {...renderButtonProps}
       >
         {children || (
           <View style={styles.button}>
@@ -195,7 +217,7 @@ export default class ModalDropdown extends Component {
             </Text>
           </View>
         )}
-      </TouchableOpacity>
+      </ButtonTouchable>
     );
   }
 
@@ -328,10 +350,13 @@ export default class ModalDropdown extends Component {
   _renderItem = ({ item, index, separators }) => {
     const {
       renderRow,
+      renderRowComponent,
+      renderRowProps,
       dropdownTextStyle,
       dropdownTextHighlightStyle,
       accessible,
     } = this.props;
+    const RowTouchable = renderRowComponent;
     const { selectedIndex } = this.state;
     const key = `row_${index}`;
     const highlighted = index === selectedIndex;
@@ -350,45 +375,15 @@ export default class ModalDropdown extends Component {
     ) : (
       renderRow(item, index, highlighted)
     );
-    const preservedProps = {
+
+    const touchableProps = {
       key,
       accessible,
       onPress: () => this._onRowPress(item, index, separators),
+      ...renderRowProps
     };
 
-    if (TOUCHABLE_ELEMENTS.find(name => name === row.type.displayName)) {
-      const props = { ...row.props };
-      props.key = preservedProps.key;
-      props.onPress = preservedProps.onPress;
-      const { children } = row.props;
-
-      switch (row.type.displayName) {
-        case 'TouchableHighlight': {
-          return <TouchableHighlight {...props}>{children}</TouchableHighlight>;
-        }
-        case 'TouchableOpacity': {
-          return <TouchableOpacity {...props}>{children}</TouchableOpacity>;
-        }
-        case 'TouchableWithoutFeedback': {
-          return (
-            <TouchableWithoutFeedback {...props}>
-              {children}
-            </TouchableWithoutFeedback>
-          );
-        }
-        case 'TouchableNativeFeedback': {
-          return (
-            <TouchableNativeFeedback {...props}>
-              {children}
-            </TouchableNativeFeedback>
-          );
-        }
-        default:
-          break;
-      }
-    }
-
-    return <TouchableHighlight {...preservedProps}>{row}</TouchableHighlight>;
+    return <RowTouchable {...touchableProps}>{row}</RowTouchable>;
   };
 
   _onRowPress(rowData, rowID, highlightRow) {

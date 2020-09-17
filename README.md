@@ -80,8 +80,12 @@ Prop                | Type     | Optional | Default   | Description
 `dropdownTextHighlightStyle`   | object | Yes      |  | Style of the dropdown selected option text.
 `adjustFrame`       | func     | Yes      |           | This is a callback after the frame of the dropdown have been calculated and before showing. You will receive a style object as argument with some of the props like `width` `height` `top` `left` and `right`. Change them to appropriate values that accord with your requirement and **make the new style as the return value of this function**.
 `renderRow`         | func     | Yes      |           | Customize render option rows: `function(option,index,isSelected)` **Will render a default row if `null`/`undefined`.**
+`renderRowComponent`| Component | Yes      | `TouchableOpacity` for iOS and `TouchableHighlight` for Android | Customize the touchable component of the rows
+`renderRowProps`    | object   | Yes      |           | Add custom props to the touchable component of the rows
 `renderSeparator`   | func     | Yes      |           | Customize render dropdown list separators. **Will render a default thin gray line if `null`/`undefined`.**
 `renderButtonText`  | func     | Yes      |           | Use this to extract and return text from option object. This text will show on button after option selected. **Invalid in wrapper mode.**
+`renderButtonComponent`| Component | Yes      | `TouchableOpacity` | Customize the touchable component of the button
+`renderButtonProps` | object    | Yes      |           | Add custom props to the touchable component of the button
 `onDropdownWillShow`| func     | Yes      |           | Trigger when dropdown will show by touching the button. **Return `false` can cancel the event.**
 `onDropdownWillHide`| func     | Yes      |           | Trigger when dropdown will hide by touching the button. **Return `false` can cancel the event.**
 `onSelect`          | func     | Yes      |           | Trigger when option row touched with selected `index` and `value`. **Return `false` can cancel the event.**
