@@ -78,6 +78,7 @@ Prop                | Type     | Optional | Default   | Description
 `dropdownStyle`     | object   | Yes      |           | Style of the dropdown list.
 `dropdownTextStyle` | object   | Yes      |           | Style of the dropdown option text.
 `dropdownTextHighlightStyle`   | object | Yes      |  | Style of the dropdown selected option text.
+`dropdownTextProps` | object   | Yes      |           | Add custom props to the dropdown option text
 `adjustFrame`       | func     | Yes      |           | This is a callback after the frame of the dropdown have been calculated and before showing. You will receive a style object as argument with some of the props like `width` `height` `top` `left` and `right`. Change them to appropriate values that accord with your requirement and **make the new style as the return value of this function**.
 `renderRow`         | func     | Yes      |           | Customize render option rows: `function(option,index,isSelected)` **Will render a default row if `null`/`undefined`.**
 `renderRowComponent`| Component | Yes      | `TouchableOpacity` for iOS and `TouchableHighlight` for Android | Customize the touchable component of the rows

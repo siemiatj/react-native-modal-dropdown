@@ -355,6 +355,7 @@ export default class ModalDropdown extends Component {
       dropdownTextStyle,
       dropdownTextHighlightStyle,
       accessible,
+      dropdownTextProps,
     } = this.props;
     const RowTouchable = renderRowComponent;
     const { selectedIndex } = this.state;
@@ -369,6 +370,7 @@ export default class ModalDropdown extends Component {
           highlighted && styles.highlightedRowText,
           highlighted && dropdownTextHighlightStyle,
         ]}
+        {...dropdownTextProps}
       >
         {item}
       </Text>
