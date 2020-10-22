@@ -59,7 +59,6 @@ export default class ModalDropdown extends Component {
       PropTypes.object,
       PropTypes.array,
     ]),
-    dropdownTextProps: PropTypes.object,
     adjustFrame: PropTypes.func,
     renderRow: PropTypes.func,
     renderRowComponent: PropTypes.oneOfType([
