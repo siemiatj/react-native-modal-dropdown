@@ -72,6 +72,7 @@ Prop                | Type     | Optional | Default   | Description
 `defaultValue`      | string   | Yes      | Please select... | Init text of the button. **Invalid in wrapper mode.**
 `options`           | array    | Yes      |           | Options. **The dropdown will show a loading indicator if `options` is `null`/`undefined`.**
 `animated`          | bool     | Yes      | true      | Disable / enable fade animation.
+`isFullWidth`          | bool     | Yes      | false      | Disable / enable is dropdown render as full width.
 `showsVerticalScrollIndicator` | bool | Yes | true    | Show / hide vertical scroll indicator.
 `style`             | object   | Yes      |           | Style of the button.
 `textStyle`         | object   | Yes      |           | Style of the button text. **Invalid in wrapper mode.**
