@@ -31,11 +31,11 @@ You can find them in the example.
 
 ## Installation
 ```sh
-npm i https://github.com/siemiatj/react-native-modal-dropdown -save
+npm i https://github.com/Kishanjvaghela/react-native-modal-dropdown -save
 ```
 or
 ```sh
-yarn add https://github.com/siemiatj/react-native-modal-dropdown
+yarn add https://github.com/Kishanjvaghela/react-native-modal-dropdown
 ```
 
 ## Usage
@@ -86,6 +86,7 @@ Prop                | Type     | Optional | Default   | Description
 `renderSeparator`   | func     | Yes      |           | Customize render dropdown list separators. **Will render a default thin gray line if `null`/`undefined`.**
 `renderButtonText`  | func     | Yes      |           | Use this to extract and return text from option object. This text will show on button after option selected. **Invalid in wrapper mode.**
 `renderButtonComponent`| Component | Yes      | `TouchableOpacity` | Customize the touchable component of the button
+`renderRightComponent`| Component | Yes      | `View` | Custom component/Image to display on right side as dropdown icon
 `renderButtonProps` | object    | Yes      |           | Add custom props to the touchable component of the button
 `onDropdownWillShow`| func     | Yes      |           | Trigger when dropdown will show by touching the button. **Return `false` can cancel the event.**
 `onDropdownWillHide`| func     | Yes      |           | Trigger when dropdown will hide by touching the button. **Return `false` can cancel the event.**
