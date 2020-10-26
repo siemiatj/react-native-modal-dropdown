@@ -32,6 +32,7 @@ export default class ModalDropdown extends Component {
     options: PropTypes.array.isRequired,
     accessible: PropTypes.bool,
     animated: PropTypes.bool,
+    isFullWidth: PropTypes.bool,
     showsVerticalScrollIndicator: PropTypes.bool,
     keyboardShouldPersistTaps: PropTypes.string,
     style: PropTypes.oneOfType([
@@ -90,6 +91,7 @@ export default class ModalDropdown extends Component {
     defaultIndex: -1,
     defaultValue: 'Please select...',
     animated: true,
+    isFullWidth: false,
     showsVerticalScrollIndicator: true,
     keyboardShouldPersistTaps: 'never',
     renderRowComponent: Platform.OS === 'ios' ? TouchableOpacity : TouchableHighlight,
@@ -277,7 +279,7 @@ export default class ModalDropdown extends Component {
   }
 
   _calcPosition() {
-    const { dropdownStyle, style, adjustFrame } = this.props;
+    const { dropdownStyle, style, adjustFrame, isFullWidth } = this.props;
     const dimensions = Dimensions.get('window');
     const windowWidth = dimensions.width;
     const windowHeight = dimensions.height;
@@ -299,7 +301,9 @@ export default class ModalDropdown extends Component {
 
     if (showInLeft) {
       positionStyle.left = this._buttonFrame.x;
-      positionStyle.right = rightSpace - this._buttonFrame.w;
+      if(isFullWidth) {
+        positionStyle.right = rightSpace - this._buttonFrame.w;
+      }
     } else {
       const dropdownWidth =
         (dropdownStyle && StyleSheet.flatten(dropdownStyle).width) ||
