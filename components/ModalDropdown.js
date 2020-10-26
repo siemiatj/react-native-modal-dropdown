@@ -73,6 +73,10 @@ export default class ModalDropdown extends Component {
       PropTypes.func,
       PropTypes.object,
     ]),
+    renderRightComponent: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.object,
+    ]),
     renderButtonProps: PropTypes.object,
     onDropdownWillShow: PropTypes.func,
     onDropdownWillHide: PropTypes.func,
@@ -90,6 +94,7 @@ export default class ModalDropdown extends Component {
     keyboardShouldPersistTaps: 'never',
     renderRowComponent: Platform.OS === 'ios' ? TouchableOpacity : TouchableHighlight,
     renderButtonComponent: TouchableOpacity,
+    renderRightComponent: View
   };
 
   constructor(props) {
@@ -199,8 +204,10 @@ export default class ModalDropdown extends Component {
       textStyle,
       renderButtonComponent,
       renderButtonProps,
+      renderRightComponent
     } = this.props;
     const ButtonTouchable = renderButtonComponent;
+    const RightComponent = renderRightComponent;
     const { buttonText } = this.state;
 
     return (
@@ -216,6 +223,7 @@ export default class ModalDropdown extends Component {
             <Text style={[styles.buttonText, textStyle]} numberOfLines={1}>
               {buttonText}
             </Text>
+            <RightComponent />
           </View>
         )}
       </ButtonTouchable>
@@ -426,7 +434,9 @@ export default class ModalDropdown extends Component {
 
 const styles = StyleSheet.create({
   button: {
-    justifyContent: 'center',
+    // justifyContent: 'center',
+    flexDirection:'row',
+    alignItems: 'center'
   },
   buttonText: {
     fontSize: 12,
