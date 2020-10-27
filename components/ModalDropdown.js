@@ -70,6 +70,7 @@ export default class ModalDropdown extends Component {
     renderRowProps: PropTypes.object,
     renderSeparator: PropTypes.func,
     renderButtonText: PropTypes.func,
+    renderRowText: PropTypes.func,
     renderButtonComponent: PropTypes.oneOfType([
       PropTypes.func,
       PropTypes.object,
@@ -370,12 +371,14 @@ export default class ModalDropdown extends Component {
       dropdownTextHighlightStyle,
       accessible,
       dropdownTextProps,
+      renderRowText
     } = this.props;
     const RowTouchable = renderRowComponent;
     const { selectedIndex } = this.state;
     const key = `row_${index}`;
     const highlighted = index === selectedIndex;
-
+    const value =
+        (renderRowText && renderRowText(item)) || item.toString();
     const row = !renderRow ? (
       <Text
         style={[
@@ -386,7 +389,7 @@ export default class ModalDropdown extends Component {
         ]}
         {...dropdownTextProps}
       >
-        {item}
+        {value}
       </Text>
     ) : (
       renderRow(item, index, highlighted)
