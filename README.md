@@ -86,6 +86,7 @@ Prop                | Type     | Optional | Default   | Description
 `renderRowProps`    | object   | Yes      |           | Add custom props to the touchable component of the rows
 `renderSeparator`   | func     | Yes      |           | Customize render dropdown list separators. **Will render a default thin gray line if `null`/`undefined`.**
 `renderButtonText`  | func     | Yes      |           | Use this to extract and return text from option object. This text will show on button after option selected. **Invalid in wrapper mode.**
+`renderRowText`  | func     | Yes      |           | Use this to extract and return text from option object. This text will show on row **Invalid in wrapper mode.**
 `renderButtonComponent`| Component | Yes      | `TouchableOpacity` | Customize the touchable component of the button
 `renderRightComponent`| Component | Yes      | `View` | Custom component/Image to display on right side as dropdown icon
 `renderButtonProps` | object    | Yes      |           | Add custom props to the touchable component of the button
