@@ -45,6 +45,11 @@ export default class ModalDropdown extends Component {
       PropTypes.object,
       PropTypes.array,
     ]),
+    defaultTextStyle: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.object,
+      PropTypes.array,
+    ]),
     dropdownStyle: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.object,
@@ -104,7 +109,7 @@ export default class ModalDropdown extends Component {
     super(props);
     this._button = null;
     this._buttonFrame = null;
-
+    
     this.state = {
       accessible: !!props.accessible,
       loading: !props.options,
@@ -205,14 +210,15 @@ export default class ModalDropdown extends Component {
       accessible,
       children,
       textStyle,
+      defaultTextStyle,
       renderButtonComponent,
       renderButtonProps,
       renderRightComponent
     } = this.props;
     const ButtonTouchable = renderButtonComponent;
     const RightComponent = renderRightComponent;
-    const { buttonText } = this.state;
-
+    const { buttonText, selectedIndex } = this.state;
+    const buttonTextStyle = selectedIndex < 0 ? [textStyle, defaultTextStyle] : textStyle; 
     return (
       <ButtonTouchable
         ref={button => (this._button = button)}
@@ -223,7 +229,7 @@ export default class ModalDropdown extends Component {
       >
         {children || (
           <View style={styles.button}>
-            <Text style={[styles.buttonText, textStyle]} numberOfLines={1}>
+            <Text style={[styles.buttonText, buttonTextStyle]} numberOfLines={1}>
               {buttonText}
             </Text>
             <RightComponent />

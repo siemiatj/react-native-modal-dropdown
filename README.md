@@ -76,6 +76,7 @@ Prop                | Type     | Optional | Default   | Description
 `showsVerticalScrollIndicator` | bool | Yes | true    | Show / hide vertical scroll indicator.
 `style`             | object   | Yes      |           | Style of the button.
 `textStyle`         | object   | Yes      |           | Style of the button text. **Invalid in wrapper mode.**
+`defaultTextStyle`         | object   | Yes      |           | Overried Style of the button text for default value. **Invalid in wrapper mode.**
 `dropdownStyle`     | object   | Yes      |           | Style of the dropdown list.
 `dropdownTextStyle` | object   | Yes      |           | Style of the dropdown option text.
 `dropdownTextHighlightStyle`   | object | Yes      |  | Style of the dropdown selected option text.
