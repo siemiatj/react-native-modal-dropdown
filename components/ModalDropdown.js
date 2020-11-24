@@ -32,6 +32,7 @@ export default class ModalDropdown extends Component {
     options: PropTypes.array.isRequired,
     accessible: PropTypes.bool,
     animated: PropTypes.bool,
+    isFullWidth: PropTypes.bool,
     showsVerticalScrollIndicator: PropTypes.bool,
     keyboardShouldPersistTaps: PropTypes.string,
     style: PropTypes.oneOfType([
@@ -40,6 +41,11 @@ export default class ModalDropdown extends Component {
       PropTypes.array,
     ]),
     textStyle: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.object,
+      PropTypes.array,
+    ]),
+    defaultTextStyle: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.object,
       PropTypes.array,
@@ -69,7 +75,12 @@ export default class ModalDropdown extends Component {
     renderRowProps: PropTypes.object,
     renderSeparator: PropTypes.func,
     renderButtonText: PropTypes.func,
+    renderRowText: PropTypes.func,
     renderButtonComponent: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.object,
+    ]),
+    renderRightComponent: PropTypes.oneOfType([
       PropTypes.func,
       PropTypes.object,
     ]),
@@ -86,17 +97,19 @@ export default class ModalDropdown extends Component {
     defaultIndex: -1,
     defaultValue: 'Please select...',
     animated: true,
+    isFullWidth: false,
     showsVerticalScrollIndicator: true,
     keyboardShouldPersistTaps: 'never',
     renderRowComponent: Platform.OS === 'ios' ? TouchableOpacity : TouchableHighlight,
     renderButtonComponent: TouchableOpacity,
+    renderRightComponent: View
   };
 
   constructor(props) {
     super(props);
     this._button = null;
     this._buttonFrame = null;
-
+    
     this.state = {
       accessible: !!props.accessible,
       loading: !props.options,
@@ -197,12 +210,15 @@ export default class ModalDropdown extends Component {
       accessible,
       children,
       textStyle,
+      defaultTextStyle,
       renderButtonComponent,
       renderButtonProps,
+      renderRightComponent
     } = this.props;
     const ButtonTouchable = renderButtonComponent;
-    const { buttonText } = this.state;
-
+    const RightComponent = renderRightComponent;
+    const { buttonText, selectedIndex } = this.state;
+    const buttonTextStyle = selectedIndex < 0 ? [textStyle, defaultTextStyle] : textStyle; 
     return (
       <ButtonTouchable
         ref={button => (this._button = button)}
@@ -213,9 +229,10 @@ export default class ModalDropdown extends Component {
       >
         {children || (
           <View style={styles.button}>
-            <Text style={[styles.buttonText, textStyle]} numberOfLines={1}>
+            <Text style={[styles.buttonText, buttonTextStyle]} numberOfLines={1}>
               {buttonText}
             </Text>
+            <RightComponent />
           </View>
         )}
       </ButtonTouchable>
@@ -269,7 +286,7 @@ export default class ModalDropdown extends Component {
   }
 
   _calcPosition() {
-    const { dropdownStyle, style, adjustFrame } = this.props;
+    const { dropdownStyle, style, adjustFrame, isFullWidth } = this.props;
     const dimensions = Dimensions.get('window');
     const windowWidth = dimensions.width;
     const windowHeight = dimensions.height;
@@ -291,6 +308,9 @@ export default class ModalDropdown extends Component {
 
     if (showInLeft) {
       positionStyle.left = this._buttonFrame.x;
+      if(isFullWidth) {
+        positionStyle.right = rightSpace - this._buttonFrame.w;
+      }
     } else {
       const dropdownWidth =
         (dropdownStyle && StyleSheet.flatten(dropdownStyle).width) ||
@@ -357,12 +377,14 @@ export default class ModalDropdown extends Component {
       dropdownTextHighlightStyle,
       accessible,
       dropdownTextProps,
+      renderRowText
     } = this.props;
     const RowTouchable = renderRowComponent;
     const { selectedIndex } = this.state;
     const key = `row_${index}`;
     const highlighted = index === selectedIndex;
-
+    const value =
+        (renderRowText && renderRowText(item)) || item.toString();
     const row = !renderRow ? (
       <Text
         style={[
@@ -373,7 +395,7 @@ export default class ModalDropdown extends Component {
         ]}
         {...dropdownTextProps}
       >
-        {item}
+        {value}
       </Text>
     ) : (
       renderRow(item, index, highlighted)
@@ -425,7 +447,9 @@ export default class ModalDropdown extends Component {
 
 const styles = StyleSheet.create({
   button: {
-    justifyContent: 'center',
+    // justifyContent: 'center',
+    flexDirection:'row',
+    alignItems: 'center'
   },
   buttonText: {
     fontSize: 12,
