@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   ScrollView,
+  TextInput,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
@@ -31,12 +32,15 @@ const DEMO_OPTIONS_2 = [
   {"name": "Ian", "age": 20},
   {"name": "Phil", "age": 24},
 ];
+const DEMO_OPTIONS_7 = ['a option 1', 'b option 2', 'c option 3', 'd option 4', 'e option 5', 'f option 6', 'g option 7', 'h option 8', 'i option 9', 'j option 10'];
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      dropdown_2_options: DEMO_OPTIONS_2,
+      dropdown_2_searchValue: '',
       dropdown_4_options: [],
       dropdown_4_defaultValue: 'loading...',
       dropdown_6_icon_heart: true,
@@ -45,6 +49,7 @@ class App extends Component {
 
   render() {
     const dropdown_6_icon = this.state.dropdown_6_icon_heart ? require('./images/heart.png') : require('./images/flower.png');
+
     return (
       <View style={styles.container}>
         <StatusBar style="auto" />
@@ -81,6 +86,40 @@ class App extends Component {
                 select Rex
               </Text>
             </TouchableOpacity>
+            <Text></Text>
+            <Text>with search (not rerendering the options yet):</Text>
+            <ModalDropdown ref="dropdown_2"
+                           style={styles.dropdown_2}
+                           textStyle={styles.dropdown_2_text}
+                           dropdownStyle={styles.dropdown_2_dropdown}
+                           options={this.state.dropdown_2_options}
+                           renderButtonText={(rowData) => this._dropdown_2_renderButtonText(rowData)}
+                           renderRow={this._dropdown_2_renderRow.bind(this)}
+                           renderRowComponent={TouchableHighlight}
+                           renderSeparator={(sectionID, rowID, adjacentRowHighlighted) => this._dropdown_2_renderSeparator(sectionID, rowID, adjacentRowHighlighted)}
+                           showSearch
+                           renderSearch={
+                            <TextInput
+                              style={styles.searchInput}
+                              onChangeText={(text) => {
+                                let filteredOptions = DEMO_OPTIONS_2;
+
+                                if (text) {
+                                  filteredOptions = DEMO_OPTIONS_2.filter((option) =>
+                                    option.name.toLowerCase().includes(text.toLowerCase().trim())
+                                  );
+                                }
+
+                                this.setState({
+                                  dropdown_2_searchValue: text,
+                                  dropdown_2_options: filteredOptions
+                                })
+                              }}
+                              value={this.state.dropdown_2_searchValue}
+                              placeholder="Search"
+                            />
+                           }
+            />
           </View>
         </View>
         <View style={styles.row}>
@@ -100,6 +139,16 @@ class App extends Component {
                            dropdownTextHighlightStyle={styles.dropdown_3_dropdownTextHighlightStyle}
             />
           </ScrollView>
+        </View>
+        <View style={styles.row}>
+          <View style={[styles.cell, {alignItems: 'center'}]}>
+            <Text>Search example:</Text>
+            <ModalDropdown ref={el => this._dropdown_7 = el}
+                           style={styles.dropdown_7}
+                           options={DEMO_OPTIONS_7}
+                           showSearch
+            />
+          </View>
         </View>
         <View style={styles.row}>
           <View style={[styles.cell, {justifyContent: 'flex-end'}]}>
@@ -343,6 +392,19 @@ const styles = StyleSheet.create({
   dropdown_6_image: {
     width: 40,
     height: 40,
+  },
+  dropdown_7: {
+    width: 150,
+    borderColor: 'lightgray',
+    borderWidth: 1,
+    borderRadius: 1,
+  },
+  searchInput: {
+    borderColor: 'gray',
+    borderWidth: StyleSheet.hairlineWidth,
+    fontSize: 11,
+    paddingHorizontal: 6,
+    paddingVertical: 10,
   },
 });
 

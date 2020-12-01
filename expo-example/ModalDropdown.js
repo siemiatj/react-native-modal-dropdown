@@ -11,7 +11,8 @@ import {
   Modal,
   ActivityIndicator,
   FlatList,
-  Platform
+  Platform,
+  TextInput
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -34,6 +35,17 @@ export default class ModalDropdown extends Component {
     animated: PropTypes.bool,
     showsVerticalScrollIndicator: PropTypes.bool,
     keyboardShouldPersistTaps: PropTypes.string,
+    showSearch: PropTypes.bool,
+    renderSearch: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.object,
+    ]),
+    searchInputStyle: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.object,
+      PropTypes.array,
+    ]),
+    searchPlaceholder: PropTypes.string,
     style: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.object,
@@ -87,6 +99,8 @@ export default class ModalDropdown extends Component {
     animated: true,
     showsVerticalScrollIndicator: true,
     keyboardShouldPersistTaps: 'never',
+    showSearch: false,
+    searchPlaceholder: "Search",
     renderRowComponent: Platform.OS === 'ios' ? TouchableOpacity : TouchableHighlight,
     renderButtonComponent: TouchableOpacity,
   };
@@ -102,6 +116,8 @@ export default class ModalDropdown extends Component {
       showDropdown: false,
       buttonText: props.defaultValue,
       selectedIndex: props.defaultIndex,
+      options: props.options,
+      searchValue: '',
     };
   }
 
@@ -329,8 +345,8 @@ export default class ModalDropdown extends Component {
       renderSeparator,
       showsVerticalScrollIndicator,
       keyboardShouldPersistTaps,
-      options,
     } = this.props;
+    const { options } = this.state;
 
     return (
       <FlatList
@@ -343,9 +359,48 @@ export default class ModalDropdown extends Component {
         automaticallyAdjustContentInsets={false}
         showsVerticalScrollIndicator={showsVerticalScrollIndicator}
         keyboardShouldPersistTaps={keyboardShouldPersistTaps}
+        ListHeaderComponent={this._renderSearchInput}
       />
     );
   }
+
+  _renderSearchInput = () => {
+    const {
+      showSearch,
+      renderSearch,
+      searchInputStyle,
+      searchPlaceholder,
+      options: initialOptions,
+    } = this.props;
+
+    if (!showSearch) return null;
+    if (renderSearch) return renderSearch;
+
+    const { buttonText, searchValue } = this.state;
+
+    return (
+      <TextInput
+        style={[styles.searchInput, searchInputStyle]}
+        onChangeText={(text) => {
+          let filteredOptions = initialOptions;
+
+          if (text) {
+            filteredOptions = initialOptions.filter((option) =>
+              option.toLowerCase().includes(text.toLowerCase().trim())
+            );
+          }
+
+          this.setState({
+            searchValue: text,
+            options: filteredOptions,
+            selectedIndex: filteredOptions.indexOf(buttonText)
+          })
+        }}
+        value={searchValue}
+        placeholder={searchPlaceholder}
+      />
+    );
+  };
 
   _renderItem = ({ item, index, separators }) => {
     const {
@@ -462,4 +517,11 @@ const styles = StyleSheet.create({
     height: StyleSheet.hairlineWidth,
     backgroundColor: 'lightgray',
   },
+  searchInput: {
+    borderColor: 'gray',
+    borderWidth: StyleSheet.hairlineWidth,
+    fontSize: 11,
+    paddingHorizontal: 6,
+    paddingVertical: 10,
+  }
 });
