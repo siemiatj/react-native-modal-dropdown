@@ -97,6 +97,7 @@ Prop                | Type     | Optional | Default   | Description
 `accessible`          | bool     | Yes      | true    | Set accessibility of dropdown modal and dropdown rows
 `keyboardShouldPersistTaps`    | enum('always', 'never', 'handled') | Yes | 'never' | See react-native `ScrollView` props
 `multipleSelect`          | bool     | Yes      | false    | Remove event closing modal when calling onSelect.
+`dropdownListProps`          | object     | Yes      | null    | FlatList props
 
 ### Methods
 Method            |  Description

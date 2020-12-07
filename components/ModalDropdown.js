@@ -65,6 +65,7 @@ export default class ModalDropdown extends Component {
       PropTypes.object,
       PropTypes.array,
     ]),
+    dropdownListProps: PropTypes.object,
     dropdownTextProps: PropTypes.object,
     adjustFrame: PropTypes.func,
     renderRow: PropTypes.func,
@@ -109,7 +110,7 @@ export default class ModalDropdown extends Component {
     super(props);
     this._button = null;
     this._buttonFrame = null;
-    
+
     this.state = {
       accessible: !!props.accessible,
       loading: !props.options,
@@ -218,7 +219,7 @@ export default class ModalDropdown extends Component {
     const ButtonTouchable = renderButtonComponent;
     const RightComponent = renderRightComponent;
     const { buttonText, selectedIndex } = this.state;
-    const buttonTextStyle = selectedIndex < 0 ? [textStyle, defaultTextStyle] : textStyle; 
+    const buttonTextStyle = selectedIndex < 0 ? [textStyle, defaultTextStyle] : textStyle;
     return (
       <ButtonTouchable
         ref={button => (this._button = button)}
@@ -351,10 +352,12 @@ export default class ModalDropdown extends Component {
       showsVerticalScrollIndicator,
       keyboardShouldPersistTaps,
       options,
+      dropdownListProps,
     } = this.props;
 
     return (
       <FlatList
+        {...dropdownListProps}
         data={options}
         scrollEnabled={scrollEnabled}
         style={styles.list}
