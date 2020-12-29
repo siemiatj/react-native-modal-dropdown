@@ -31,11 +31,11 @@ You can find them in the example.
 
 ## Installation
 ```sh
-npm i https://github.com/Kishanjvaghela/react-native-modal-dropdown -save
+npm i https://github.com/siemiatj/react-native-modal-dropdown -save
 ```
 or
 ```sh
-yarn add https://github.com/Kishanjvaghela/react-native-modal-dropdown
+yarn add https://github.com/siemiatj/react-native-modal-dropdown
 ```
 
 ## Usage
