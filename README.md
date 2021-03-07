@@ -74,6 +74,7 @@ Prop                | Type     | Optional | Default   | Description
 `animated`          | bool     | Yes      | true      | Disable / enable fade animation.
 `isFullWidth`          | bool     | Yes      | false      | Disable / enable is dropdown render as full width.
 `showsVerticalScrollIndicator` | bool | Yes | true    | Show / hide vertical scroll indicator.
+`saveScrollPosition` | bool | Yes | true    | Sets the scroll position to selected index.
 `style`             | object   | Yes      |           | Style of the button.
 `textStyle`         | object   | Yes      |           | Style of the button text. **Invalid in wrapper mode.**
 `defaultTextStyle`         | object   | Yes      |           | Overried Style of the button text for default value. **Invalid in wrapper mode.**
