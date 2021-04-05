@@ -100,7 +100,7 @@ Prop                | Type     | Optional | Default   | Description
 `dropdownListProps`          | object     | Yes      | null    | FlatList props
 `showSearch`          | bool     | Yes      | false    | Setting showSearch to true will render the list header with a search
 `renderSearch`          | Component     | Yes      | null    | Allows to pass search component (required `showSearch` props )
-`keyObjectSearch`          | string     | Yes      | 'label'    | If your option is an array containing objects, option will find element via `keyObjectSearch`
+`keySearchObject`          | string     | Yes      | 'label'    | If your option is an array containing objects, option will find element via `keySearchObject`
 
 ### Methods
 Method            |  Description

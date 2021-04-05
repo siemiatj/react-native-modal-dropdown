@@ -37,7 +37,7 @@ export default class ModalDropdown extends Component {
     showsVerticalScrollIndicator: PropTypes.bool,
     keyboardShouldPersistTaps: PropTypes.string,
     showSearch: PropTypes.bool,
-    keyObjectSearch: PropTypes.string,
+    keySearchObject: PropTypes.string,
     renderSearch: PropTypes.oneOfType([
       PropTypes.func,
       PropTypes.object,
@@ -116,7 +116,7 @@ export default class ModalDropdown extends Component {
     keyboardShouldPersistTaps: 'never',
     showSearch: false,
     searchPlaceholder: "Search",
-    keyObjectSearch: 'label',
+    keySearchObject: 'label',
     renderRowComponent: Platform.OS === 'ios' ? TouchableOpacity : TouchableHighlight,
     renderButtonComponent: TouchableOpacity,
     renderRightComponent: View
@@ -370,7 +370,7 @@ export default class ModalDropdown extends Component {
       searchInputStyle,
       searchPlaceholder,
       options: initialOptions,
-      keyObjectSearch,
+      keySearchObject,
     } = this.props;
 
     if (!showSearch) return null;
@@ -387,7 +387,7 @@ export default class ModalDropdown extends Component {
           if (text) {
             filteredOptions = initialOptions.filter((option) => {
               return typeof option === 'object' && option !== null
-                ? option?.[keyObjectSearch]?.toLowerCase().includes(text.toLowerCase().trim())
+                ? option?.[keySearchObject]?.toLowerCase().includes(text.toLowerCase().trim())
                 : option.toLowerCase().includes(text.toLowerCase().trim())
             }
             );
