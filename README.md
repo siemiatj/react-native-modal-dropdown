@@ -98,6 +98,9 @@ Prop                | Type     | Optional | Default   | Description
 `keyboardShouldPersistTaps`    | enum('always', 'never', 'handled') | Yes | 'never' | See react-native `ScrollView` props
 `multipleSelect`          | bool     | Yes      | false    | Remove event closing modal when calling onSelect.
 `dropdownListProps`          | object     | Yes      | null    | FlatList props
+`showSearch`          | bool     | Yes      | false    | Setting showSearch to true will render the list header with a search
+`renderSearch`          | Component     | Yes      | null    | Allows to pass search component (required `showSearch` props )
+`keyObjectSearch`          | string     | Yes      | 'label'    | If your option is an array containing objects, option will find element via `keyObjectSearch`
 
 ### Methods
 Method            |  Description
