@@ -159,6 +159,10 @@ export default class ModalDropdown extends Component {
       }
       newState.loading = !options;
     }
+    // this compare only checks an array with no data, doesnt deep check, this comparison use for get api
+    if (options !== state.options) {
+      newState.options = options
+    }
     return newState;
   }
 
