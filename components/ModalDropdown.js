@@ -29,7 +29,7 @@ export default class ModalDropdown extends Component {
     scrollEnabled: PropTypes.bool,
     defaultIndex: PropTypes.number,
     defaultValue: PropTypes.string,
-    options: PropTypes.array.isRequired,
+    options: PropTypes.array,
     accessible: PropTypes.bool,
     animated: PropTypes.bool,
     isFullWidth: PropTypes.bool,
