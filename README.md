@@ -98,6 +98,7 @@ Prop                | Type     | Optional | Default   | Description
 `keyboardShouldPersistTaps`    | enum('always', 'never', 'handled') | Yes | 'never' | See react-native `ScrollView` props
 `multipleSelect`          | bool     | Yes      | false    | Remove event closing modal when calling onSelect.
 `dropdownListProps`          | object     | Yes      | null    | FlatList props
+`buttonAndRightComponentContainerStyle`          | object     | Yes      |     | Prop to style the container View of the `<Text>` and the `<RightComponent />`
 
 ### Methods
 Method            |  Description
