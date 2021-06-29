@@ -404,6 +404,7 @@ export default class ModalDropdown extends Component {
           highlighted && styles.highlightedRowText,
           highlighted && dropdownTextHighlightStyle,
         ]}
+        testID={item}
         {...dropdownTextProps}
       >
         {value}
