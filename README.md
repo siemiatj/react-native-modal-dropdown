@@ -21,8 +21,11 @@ You can find them in the example.
 
 ## Update History
 
-### v0.7.5
-- latest version, merged some PRs
+### v1.0.1
+- small fixes and more styling custimizations allowed
+
+### v1.0.0
+- took over the package and merged user's PRs
 
 ### v0.7.0
 - Quick fix for react native 0.60. (Thanks to [@ibtesamlatif2997](https://github.com/ibtesamlatif2997))
