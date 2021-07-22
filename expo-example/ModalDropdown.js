@@ -27,6 +27,7 @@ export default class ModalDropdown extends Component {
     disabled: PropTypes.bool,
     multipleSelect: PropTypes.bool,
     scrollEnabled: PropTypes.bool,
+    saveScrollPosition: PropTypes.bool,
     defaultIndex: PropTypes.number,
     defaultValue: PropTypes.string,
     options: PropTypes.array.isRequired,
@@ -82,6 +83,7 @@ export default class ModalDropdown extends Component {
     disabled: false,
     multipleSelect: false,
     scrollEnabled: true,
+    saveScrollPosition: true,
     defaultIndex: -1,
     defaultValue: 'Please select...',
     animated: true,
@@ -326,16 +328,20 @@ export default class ModalDropdown extends Component {
   _renderDropdown() {
     const {
       scrollEnabled,
+      saveScrollPosition,
       renderSeparator,
       showsVerticalScrollIndicator,
       keyboardShouldPersistTaps,
       options,
     } = this.props;
 
+    const { selectedIndex } = this.state;
+
     return (
       <FlatList
         data={options}
         scrollEnabled={scrollEnabled}
+        initialScrollIndex={saveScrollPosition ? selectedIndex : -1}
         style={styles.list}
         keyExtractor={(item, i) => (`key-${i}`)}
         renderItem={this._renderItem}
