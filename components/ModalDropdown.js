@@ -27,9 +27,10 @@ export default class ModalDropdown extends Component {
     disabled: PropTypes.bool,
     multipleSelect: PropTypes.bool,
     scrollEnabled: PropTypes.bool,
+    saveScrollPosition: PropTypes.bool,
     defaultIndex: PropTypes.number,
     defaultValue: PropTypes.string,
-    options: PropTypes.array.isRequired,
+    options: PropTypes.array,
     accessible: PropTypes.bool,
     animated: PropTypes.bool,
     isFullWidth: PropTypes.bool,
@@ -89,12 +90,14 @@ export default class ModalDropdown extends Component {
     onDropdownWillShow: PropTypes.func,
     onDropdownWillHide: PropTypes.func,
     onSelect: PropTypes.func,
+    numberOfLines: PropTypes.number
   };
 
   static defaultProps = {
     disabled: false,
     multipleSelect: false,
     scrollEnabled: true,
+    saveScrollPosition: true,
     defaultIndex: -1,
     defaultValue: 'Please select...',
     animated: true,
@@ -103,7 +106,8 @@ export default class ModalDropdown extends Component {
     keyboardShouldPersistTaps: 'never',
     renderRowComponent: Platform.OS === 'ios' ? TouchableOpacity : TouchableHighlight,
     renderButtonComponent: TouchableOpacity,
-    renderRightComponent: View
+    renderRightComponent: View,
+    numberOfLines: 1
   };
 
   constructor(props) {
@@ -215,7 +219,8 @@ export default class ModalDropdown extends Component {
       renderButtonComponent,
       renderButtonProps,
       renderRightComponent,
-      buttonAndRightComponentContainerStyle
+      buttonAndRightComponentContainerStyle,
+      numberOfLines,
     } = this.props;
     const ButtonTouchable = renderButtonComponent;
     const RightComponent = renderRightComponent;
@@ -231,7 +236,7 @@ export default class ModalDropdown extends Component {
       >
         {children || (
           <View style={[styles.button, buttonAndRightComponentContainerStyle]}>
-            <Text style={[styles.buttonText, buttonTextStyle]} numberOfLines={1}>
+            <Text style={[styles.buttonText, buttonTextStyle]} numberOfLines={numberOfLines}>
               {buttonText}
             </Text>
             <RightComponent />
@@ -349,18 +354,21 @@ export default class ModalDropdown extends Component {
   _renderDropdown() {
     const {
       scrollEnabled,
+      saveScrollPosition,
       renderSeparator,
       showsVerticalScrollIndicator,
       keyboardShouldPersistTaps,
       options,
       dropdownListProps,
     } = this.props;
+    const { selectedIndex } = this.state;
 
     return (
       <FlatList
         {...dropdownListProps}
         data={options}
         scrollEnabled={scrollEnabled}
+        initialScrollIndex={saveScrollPosition ? selectedIndex : -1}
         style={styles.list}
         keyExtractor={(item, i) => (`key-${i}`)}
         renderItem={this._renderItem}
@@ -397,6 +405,7 @@ export default class ModalDropdown extends Component {
           highlighted && styles.highlightedRowText,
           highlighted && dropdownTextHighlightStyle,
         ]}
+        testID={item}
         {...dropdownTextProps}
       >
         {value}

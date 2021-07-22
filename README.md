@@ -21,8 +21,11 @@ You can find them in the example.
 
 ## Update History
 
-### v0.7.5
-- latest version, merged some PRs
+### v1.0.1
+- small fixes and more styling custimizations allowed
+
+### v1.0.0
+- took over the package and merged user's PRs
 
 ### v0.7.0
 - Quick fix for react native 0.60. (Thanks to [@ibtesamlatif2997](https://github.com/ibtesamlatif2997))
@@ -31,11 +34,11 @@ You can find them in the example.
 
 ## Installation
 ```sh
-npm i https://github.com/siemiatj/react-native-modal-dropdown -save
+npm i --save react-native-modal-dropdown
 ```
 or
 ```sh
-yarn add https://github.com/siemiatj/react-native-modal-dropdown
+yarn add react-native-modal-dropdown
 ```
 
 ## Usage
@@ -74,6 +77,7 @@ Prop                | Type     | Optional | Default   | Description
 `animated`          | bool     | Yes      | true      | Disable / enable fade animation.
 `isFullWidth`          | bool     | Yes      | false      | Disable / enable is dropdown render as full width.
 `showsVerticalScrollIndicator` | bool | Yes | true    | Show / hide vertical scroll indicator.
+`saveScrollPosition` | bool | Yes | true    | Sets the scroll position to selected index.
 `style`             | object   | Yes      |           | Style of the button.
 `textStyle`         | object   | Yes      |           | Style of the button text. **Invalid in wrapper mode.**
 `defaultTextStyle`         | object   | Yes      |           | Overried Style of the button text for default value. **Invalid in wrapper mode.**
