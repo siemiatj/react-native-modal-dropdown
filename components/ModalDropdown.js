@@ -219,7 +219,8 @@ export default class ModalDropdown extends Component {
       renderButtonComponent,
       renderButtonProps,
       renderRightComponent,
-      numberOfLines
+      buttonAndRightComponentContainerStyle,
+      numberOfLines,
     } = this.props;
     const ButtonTouchable = renderButtonComponent;
     const RightComponent = renderRightComponent;
@@ -234,7 +235,7 @@ export default class ModalDropdown extends Component {
         {...renderButtonProps}
       >
         {children || (
-          <View style={styles.button}>
+          <View style={[styles.button, buttonAndRightComponentContainerStyle]}>
             <Text style={[styles.buttonText, buttonTextStyle]} numberOfLines={numberOfLines}>
               {buttonText}
             </Text>
