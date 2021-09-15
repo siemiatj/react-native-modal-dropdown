@@ -21,6 +21,10 @@ You can find them in the example.
 
 ## Update History
 
+### v1.0.2
+- Fixed Issue when initialScrollIndex failed. Added missing props: ref, getItemLayout, onScrollToIndexFailed
+- Added keySearchObject option for search objects of array option
+
 ### v1.0.1
 - small fixes and more styling custimizations allowed
 
