@@ -7,7 +7,7 @@
   "author": "sohobloo <sohobloo@live.cn> (https://github.com/sohobloo)",
   "dependencies": {
     "react": "^16.2.0",
-    "react-native": "^0.53.0",
+    "react-native": "^0.64.0",
     "react-native-modal-dropdown": "latest"
   },
   "scripts": {
