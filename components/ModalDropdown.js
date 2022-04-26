@@ -430,7 +430,12 @@ export default class ModalDropdown extends Component {
     return (
       <FlatList
         {...dropdownListProps}
-        getItemLayout={(data, index) => { return {length: 33 + StyleSheet.hairlineWidth, index, offset: (33 + StyleSheet.hairlineWidth) * index} }}
+        getItemLayout={(data, index) => {
+          if (typeof dropdownListProps.getItemLayout === 'function') {
+            return dropdownListProps.getItemLayout(data, index);
+          }
+          return {length: 33 + StyleSheet.hairlineWidth, index, offset: (33 + StyleSheet.hairlineWidth) * index}
+        }}
         data={options}
         ref={component => (this.flatList = component)}
         scrollEnabled={scrollEnabled}
