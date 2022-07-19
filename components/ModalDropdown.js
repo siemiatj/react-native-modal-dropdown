@@ -103,7 +103,8 @@ export default class ModalDropdown extends Component {
     onDropdownWillShow: PropTypes.func,
     onDropdownWillHide: PropTypes.func,
     onSelect: PropTypes.func,
-    numberOfLines: PropTypes.number
+    numberOfLines: PropTypes.number,
+    flashScrollIndicators: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -123,7 +124,8 @@ export default class ModalDropdown extends Component {
     renderRowComponent: Platform.OS === 'ios' ? TouchableOpacity : TouchableHighlight,
     renderButtonComponent: TouchableOpacity,
     renderRightComponent: View,
-    numberOfLines: 1
+    numberOfLines: 1,
+    flashScrollIndicators: true,
   };
 
   constructor(props) {
@@ -197,6 +199,8 @@ export default class ModalDropdown extends Component {
     this._updatePosition(() => {
       this.setState({
         showDropdown: true,
+      }, () => {
+        if (Platform.OS === 'ios' && this.props.flashScrollIndicators && this.flatList) this.flatList.flashScrollIndicators();
       });
     });
   }

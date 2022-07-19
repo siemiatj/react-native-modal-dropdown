@@ -1,6 +1,6 @@
 {
   "name": "greact-native-modal-dropdown",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A react-native dropdown component for both iOS and Android.",
   "keywords": [
     "react",
