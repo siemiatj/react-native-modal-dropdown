@@ -442,7 +442,7 @@ export default class ModalDropdown extends Component {
         automaticallyAdjustContentInsets={false}
         showsVerticalScrollIndicator={showsVerticalScrollIndicator}
         keyboardShouldPersistTaps={keyboardShouldPersistTaps}
-        ListHeaderComponent={ dropdownListProps.ListHeaderComponent? dropdownListProps.ListHeaderComponent: this._renderSearchInput}
+        ListHeaderComponent={ dropdownListProps?.ListHeaderComponent ? dropdownListProps.ListHeaderComponent : this._renderSearchInput}
         onScrollToIndexFailed={info => {
           const wait = new Promise(resolve => setTimeout(resolve, 500));
           wait.then(() => {
