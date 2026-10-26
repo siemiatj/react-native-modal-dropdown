@@ -493,13 +493,12 @@ export default class ModalDropdown extends Component {
     );
 
     const touchableProps = {
-      key,
       accessible,
       onPress: () => this._onRowPress(item, index, separators),
       ...renderRowProps
     };
 
-    return <RowTouchable {...touchableProps}>{row}</RowTouchable>;
+    return <RowTouchable key={key} {...touchableProps}>{row}</RowTouchable>;
   };
 
   _onRowPress(rowData, rowID, highlightRow) {
